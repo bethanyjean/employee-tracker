@@ -5,7 +5,7 @@ const inputCheck = require('../../utils/inputCheck');
 
 //get all departments
 router.get('departments', (req, res) => {
-    const sql = 'SELECT * from candidates';
+    const sql = 'SELECT * from departments';
 
     db.query(sql, (err, rows) => {
         if (err) {
@@ -27,7 +27,7 @@ router.post('/departments', ({body}, res) => {
         return;
     }
 
-    const sql = 'INSTERT INTO departments (name) VALUES (?,)';
+    const sql = 'INSTERT INTO departments (name) VALUES (?)';
     const params = [body.name];
 
     db.query(sql, params, (err, result) => {
@@ -44,7 +44,7 @@ router.post('/departments', ({body}, res) => {
 });
 
 //update a department
-router.put('/department/:id', (req, res) => {
+router.put('/departments/:id', (req, res) => {
     const errors = inputCheck(req.body, 'name');
     if (errors) {
         res.status(400).json({ error: errors });

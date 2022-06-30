@@ -5,21 +5,18 @@ const inputCheck = require('../../utils/inputCheck');
 
 // Get all employees and their department affiliation
 router.get('/employees', (req, res) => {
-  const sql = `SELECT employees.*, role.title 
-                AS title 
-                FROM employees 
+  const sql = `SELECT employee1.first_name, employee1.last_name, 
+                roles.title AS title, 
+                roles.salary AS salary,
+                departments.name AS department_name,
+                CONCAT(manager.first_name, ' ', manager.last_name) as manager
+                FROM employees employee1
                 LEFT JOIN roles 
-                ON employees.role_id = roles.id, 
-                departments.name 
-                AS department_name 
-                FROM employees 
-                LEFT JOIN departments 
-                ON employees.department_id = departments.id
-                role.salary 
-                AS salary 
-                FROM employees 
-                LEFT JOIN roles 
-                ON employees.role_id = roles.id`;
+                ON employee1.role_id = roles.id
+                JOIN departments 
+                ON roles.department_id = departments.id
+                JOIN employees manager
+                ON manager.id = employee1.manager_id` ;
 
   db.query(sql, (err, rows) => {
     if (err) {

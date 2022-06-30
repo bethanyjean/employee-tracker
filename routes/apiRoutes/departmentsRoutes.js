@@ -4,7 +4,7 @@ const db = require('../../db/connection');
 const inputCheck = require('../../utils/inputCheck');
 
 //get all departments
-router.get('departments', (req, res) => {
+router.get('/departments', (req, res) => {
     const sql = 'SELECT * from departments';
 
     db.query(sql, (err, rows) => {

@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('./db/connection');
 const apiRoutes = require('./routes/apiRoutes');
 const cTable = require('console.table');
-const inquirer = require('inquirer');
+var inquirer = require('inquirer');
 const mysql = require('mysql2');
 
 const PORT = process.env.PORT || 3001;
@@ -28,3 +28,24 @@ db.connect(err => {
     console.log(`Server running on port ${PORT}`);
   });
 });
+
+const promptUser =  () => {
+    return inquirer.prompt([
+        {
+            type: 'list',
+            name: 'request',
+            message: 'What would you like to do?',
+            choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit'],
+            default: 0
+        }
+    ])
+};
+
+function prompt() {
+    promptUser()
+    .then(userData => {
+        console.log(userData);
+    })
+};
+
+prompt();

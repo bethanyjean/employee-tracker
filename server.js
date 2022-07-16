@@ -2,7 +2,6 @@ const db = require('./db/connection');
 const cTable = require('console.table');
 var inquirer = require('inquirer');
 const mysql = require('mysql2');
-const { unsubscribe } = require('./routes/apiRoutes/departmentsRoutes');
 
 const PORT = process.env.PORT || 3001;
 
@@ -57,7 +56,7 @@ const promptAddDepartment = () => {
   ])
 }
 
-const promptAddRole = ( => {
+const promptAddRole = () => {
   return inquirer.prompt([
     {
       type: 'input',
@@ -99,7 +98,7 @@ const promptAddRole = ( => {
       }
     }
   ])
-})
+}
 
 const promptEmployee = () => {
   return inquirer.prompt([
